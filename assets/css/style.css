@@ -122,19 +122,57 @@ h1, h2, h3, h4, h5, h6 {
 /* Hero Section */
 .hero {
     position: relative;
-    min-height: 80vh;
+    min-height: 85vh;
     display: flex;
     align-items: center;
-    background: linear-gradient(rgba(0, 77, 153, 0.7), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1541888086425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    background: linear-gradient(90deg, rgba(0, 26, 51, 0.85) 0%, rgba(0, 26, 51, 0.4) 60%, rgba(0, 0, 0, 0.2) 100%), 
+                url('../image/hero-section.png') center/cover no-repeat;
     color: var(--white);
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%; /* Wider for movement */
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.08) 50%, transparent 55%);
+    background-size: 40px 40px, 40px 40px, 200% 100%;
+    z-index: 1;
+    pointer-events: none;
+    animation: pattern-wave 10s linear infinite;
+}
+
+@keyframes pattern-wave {
+    0% {
+        transform: translateX(-50%);
+        background-position: 0 0, 0 0, -100% 0;
+    }
+    100% {
+        transform: translateX(0);
+        background-position: 0 0, 0 0, 100% 0;
+    }
+}
+
+.hero .container {
+    position: relative;
+    z-index: 2;
 }
 
 .hero h1 {
     color: var(--white);
     font-size: 3.5rem;
-    font-weight: 800;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    font-weight: 900;
+    text-shadow: 2px 2px 15px rgba(0,0,0,0.4);
     margin-bottom: 20px;
+    border-left: 6px solid var(--brand-accent);
+    padding-left: 25px;
+    line-height: 1.2;
 }
 
 .hero p {
@@ -226,6 +264,118 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--brand-accent);
     margin-bottom: 15px;
     opacity: 0.7;
+}
+
+/* Service Cards */
+.service-card {
+    background: var(--white);
+    padding: 2.5rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--premium-shadow);
+    transition: var(--smooth-transition);
+    height: 100%;
+    border-top: 5px solid var(--brand-accent);
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--hover-shadow);
+}
+
+.service-card i {
+    font-size: 3rem;
+    color: var(--brand-accent); /* Using accent for icons to match equipment */
+    margin-bottom: 20px;
+    display: block;
+}
+
+.service-card h4 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: var(--brand-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Partners Section - Infinite Marquee */
+.partners-section {
+    padding: 60px 0;
+    background-color: var(--white);
+    overflow: hidden;
+}
+
+.partners-container {
+    position: relative;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+}
+
+.partners-container::before,
+.partners-container::after {
+    content: "";
+    height: 100%;
+    width: 15vw;
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.partners-container::before {
+    left: 0;
+    top: 0;
+    background: linear-gradient(to right, white, transparent);
+}
+
+.partners-container::after {
+    right: 0;
+    top: 0;
+    background: linear-gradient(to left, white, transparent);
+}
+
+.partners-slider {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    animation: logo-scroll 30s linear infinite;
+}
+
+.partners-slider:hover {
+    animation-play-state: paused;
+}
+
+.partner-logo {
+    flex: 0 0 auto;
+    width: 250px;
+    height: 80px;
+    margin: 0 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.partner-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.5;
+    transition: var(--smooth-transition);
+}
+
+.partner-logo img:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.15);
+}
+
+@keyframes logo-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-350px * 4)); /* (Width 250 + Margin 50*2) * Number of logos */
+    }
 }
 
 /* Footer */
